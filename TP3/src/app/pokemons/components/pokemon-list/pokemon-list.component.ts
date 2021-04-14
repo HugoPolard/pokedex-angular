@@ -13,6 +13,7 @@ export class PokemonListComponent implements OnInit {
   offset = 0;
   limite = 20;
   limiteMax = 150;
+  motCle = "";
 
   @Output() getPokemonDetailEvent = new EventEmitter<Pokemon>();
 
@@ -27,23 +28,27 @@ export class PokemonListComponent implements OnInit {
 
   onScroll(): void {
     console.log("SCROLL")
-    if (this.offset < this.limiteMax && this.limite <= this.limiteMax) {
-      this.pokemonService.getPokemons(this.limite, this.offset).subscribe(pokemonsReturned => pokemonsReturned.data.forEach(pokemon => {this.pokemons.push(pokemon)}));
-      this.offset += 20;
-    }
+    this.getPokemons();
   }
 
   getPokemonDetail(pokemon: Pokemon) {
     this.getPokemonDetailEvent.emit(pokemon);
   }
 
-  searchPokemon(motClé: string): void {
-    if (motClé != undefined && motClé != '') {
-        this.pokemonService.getPokemonsBySearch(motClé).subscribe(pokemonsReturned => pokemonsReturned.data.forEach(pokemon => {this.pokemons.push(pokemon)}));
-        this.offset += 20;
+  searchPokemon(motCle: string): void {
+    this.pokemons = [];
+    this.offset = 0;
+    this.motCle = motCle;
+    this.getPokemons();
+  }
+
+  getPokemons(): void {
+    if (this.motCle != undefined && this.motCle != '') {
+      this.pokemonService.getPokemonsBySearch(this.motCle).subscribe(pokemonsReturned => pokemonsReturned.data.forEach(pokemon => {this.pokemons.push(pokemon)}));
+      this.offset += 20;
     }
     else {
-      this.pokemonService.getPokemons(20, 0).subscribe(pokemonsReturned => pokemonsReturned.data.forEach(pokemon => {this.pokemons.push(pokemon)}));
+      this.pokemonService.getPokemons(20, this.offset).subscribe(pokemonsReturned => pokemonsReturned.data.forEach(pokemon => {this.pokemons.push(pokemon)}));
       this.offset += 20;
     }
   }
