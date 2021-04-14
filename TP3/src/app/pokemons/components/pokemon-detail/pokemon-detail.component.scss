@@ -1,0 +1,33 @@
+.pokemon-detail-card{
+    width: 50vw;
+    margin: auto;
+}
+
+.play-button {
+    margin-left: 20px;
+}
+
+.artwork {
+    height: 150px;
+    width: 150px;
+}
+
+.play-button {
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    margin-left: 20px;
+}
+
+mat-icon {
+    size: 100%;
+}
+
+.example-box .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-chip .cdk-drop-list-dragging {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
